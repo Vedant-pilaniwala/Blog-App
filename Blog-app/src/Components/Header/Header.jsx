@@ -1,13 +1,13 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Container, Button, LogoutBtn } from "../index";
 import { useSelector } from "react-redux";
-import { useNavigate, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import "./Header.css";
 
 function Header() {
   const isAuthenticated = useSelector((state) => state.auth.authStatus);
-  const navigate = useNavigate();
 
+  // For shortening of coder building an array which can be mapped and used while rendering component
   const routingPages = [
     {
       name: "Home",
@@ -36,10 +36,26 @@ function Header() {
     },
   ];
 
+  const [fix, setFix] = useState(false);
+
+  function setFixed() {
+    if(window.scrollY >= 384) {
+      setFix(true);
+    } else {
+      setFix(false);
+    }
+  }
+
+  useEffect(() => {
+    window.addEventListener("scroll", setFixed);
+
+    return () => window.removeEventListener("scroll", setFixed);
+  }, [])
+
   return (
     <Container className="h-auto">
       {/* background-image */}
-      <Container className='h-96 flex justify-center items-center bg-cover bg-no-repeat bg-[url("https://cdn.pixabay.com/photo/2015/10/02/15/00/diary-968592_1280.jpg")] z-0'>
+      <Container className='h-96 bg-fixed flex justify-center items-center bg-cover bg-no-repeat bg-[url("https://cdn.pixabay.com/photo/2015/10/02/15/00/diary-968592_1280.jpg")] z-0'>
         {/* background opacity */}
         <a
           href=""
@@ -51,7 +67,7 @@ function Header() {
       </Container>
 
       {/* navbar */}
-      <Container className="h-28 bg-gradient-to-r from-gray-100 to-gray-300">
+      <Container className={`h-28 bg-gradient-to-r from-gray-100 to-gray-300 ${fix && `fixed top-0`}`}>
         <nav className="w-full h-full flex justify-end items-center">
           <ul className="w-full h-full flex justify-end items-center">
             <div className="mr-auto ml-0 text-4xl font-bold p-5 font-2">
@@ -62,6 +78,7 @@ function Header() {
               if (page.status) {
                 return (
                   <NavLink
+                    key={page.name}
                     className={({ isActive }) =>
                       `hover:bg-gray-100/40 h-full flex justify-center itmes-center w-1/6 p-0 font-2
                     ${
@@ -72,10 +89,7 @@ function Header() {
                     }
                     to={page.slug}
                   >
-                    <li
-                      key={page.name}
-                      className="bg-transparent flex items-center"
-                    >
+                    <li className="bg-transparent flex items-center">
                       <Button styles="p-5">{page.name}</Button>
                     </li>
                   </NavLink>
@@ -85,7 +99,10 @@ function Header() {
 
             {/* Logout button */}
             {isAuthenticated && (
-              <li className="bg-transparent flex items-center text-2xl text-gray-700 font-medium hover:bg-gray-100/40 h-full justify-center itmes-center w-1/6 p-0 font-2">
+              <li
+                key="logout"
+                className="bg-transparent flex items-center text-2xl text-gray-700 font-medium hover:bg-gray-100/40 h-full justify-center itmes-center w-1/6 p-0 font-2"
+              >
                 <LogoutBtn />
               </li>
             )}
