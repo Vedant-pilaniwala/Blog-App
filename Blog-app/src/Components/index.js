@@ -4,6 +4,10 @@ import Header from "./Header/Header";
 import Footer from "./Footer/Footer";
 import LogoutBtn from "./Header/LogoutBtn";
 import SVGSection from "./Footer/SVGSection";
+import Input from './Input'
+import Select  from './Select'
+import Login from "./Login";
+import Signup from "./Signup";
 
 export {
     Container,
@@ -11,5 +15,9 @@ export {
     Header,
     LogoutBtn,
     Footer,
-    SVGSection
+    SVGSection,
+    Input,
+    Select,
+    Login,
+    Signup
 };

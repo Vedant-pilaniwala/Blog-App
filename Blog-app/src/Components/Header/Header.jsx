@@ -5,6 +5,7 @@ import { NavLink } from "react-router-dom";
 import "./Header.css";
 
 function Header() {
+  const [isSticky, setIsSticky] = useState(false);
   const isAuthenticated = useSelector((state) => state.auth.authStatus);
 
   // For shortening of coder building an array which can be mapped and used while rendering component
@@ -36,30 +37,30 @@ function Header() {
     },
   ];
 
-  const [fix, setFix] = useState(false);
-
-  function setFixed() {
-    if(window.scrollY >= 384) {
-      setFix(true);
-    } else {
-      setFix(false);
-    }
-  }
-
   useEffect(() => {
-    window.addEventListener("scroll", setFixed);
+    const handleScroll = () => {
+      if (window.scrollY > 384) { 
+        setIsSticky(true);
+      } else {
+        setIsSticky(false);
+      }
+    };
 
-    return () => window.removeEventListener("scroll", setFixed);
-  }, [])
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
 
   return (
     <Container className="h-auto">
       {/* background-image */}
-      <Container className='h-96 bg-fixed flex justify-center items-center bg-cover bg-no-repeat bg-[url("https://cdn.pixabay.com/photo/2015/10/02/15/00/diary-968592_1280.jpg")] z-0'>
+      <Container className='h-96 bg-fixed top-28 z-0 flex justify-center items-center bg-cover bg-no-repeat bg-[url("https://cdn.pixabay.com/photo/2015/10/02/15/00/diary-968592_1280.jpg")]'>
         {/* background opacity */}
         <a
-          href=""
-          className="absolute h-96 w-full top-0 left-0 z-10 opacity-40 bg-black"
+          href={null}
+          className="h-96 w-full absolute top-0 left-0 z-20 opacity-40 bg-black"
         />
         <div className="z-20 mx-auto w-full text-center">
           <h1 className="text-white text-8xl font-1">Blog app</h1>
@@ -67,7 +68,9 @@ function Header() {
       </Container>
 
       {/* navbar */}
-      <Container className={`h-28 bg-gradient-to-r from-gray-100 to-gray-300 ${fix && `fixed top-0`}`}>
+      <Container
+        className={`h-28 shadow-2xl shadow-gray-400 bg-gradient-to-r from-gray-100 to-gray-300 ${isSticky ? 'fixed top-0 left-0 right-0 z-50' : ''} `}
+      >
         <nav className="w-full h-full flex justify-end items-center">
           <ul className="w-full h-full flex justify-end items-center">
             <div className="mr-auto ml-0 text-4xl font-bold p-5 font-2">
@@ -81,11 +84,10 @@ function Header() {
                     key={page.name}
                     className={({ isActive }) =>
                       `hover:bg-gray-100/40 h-full flex justify-center itmes-center w-1/6 p-0 font-2
-                    ${
-                      isActive
+                    ${isActive
                         ? "text-black font-semibold text-3xl bg-gray-100/60"
                         : "text-gray-700 font-medium text-2xl bg-transparent"
-                    }`
+                      }`
                     }
                     to={page.slug}
                   >

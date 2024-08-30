@@ -11,17 +11,20 @@ export default function App() {
 
   //Loading and authentication checking
   useEffect(() => {
-    services
-      .getCurrentUser()
+    services.getCurrentUser()
       .then((userData) => {
-        if (userData) {
+        if (userData && userData.$id) {
           dispatch(login({ userData }));
         } else {
           dispatch(logout());
         }
       })
+      .catch((error) => {
+        console.error('Error checking current user:', error);
+        dispatch(logout()); // Ensure to handle logout on error
+      })
       .finally(() => setIsLoading(false));
-  }, []);
+  }, [dispatch]);
 
   //  Building logic for loading
   if (isLoading) {

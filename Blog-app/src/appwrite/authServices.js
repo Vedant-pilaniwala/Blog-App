@@ -25,7 +25,7 @@ class AuthService {
         return userAccount;
       }
     } catch (error) {
-      console.error(`Appwrite services ::  createAccount :: ${error}`);
+      throw error
     }
   }
 
@@ -33,7 +33,7 @@ class AuthService {
     try {
       return await this.account.createEmailPasswordSession(email, password);
     } catch (error) {
-      console.error(`Appwrite services :: login :: ${error}`);
+      throw error
     }
   }
 
@@ -50,6 +50,7 @@ class AuthService {
       return await this.account.get();
     } catch (error) {
       console.error(`Appwrite services :: getCurrentUser :: ${error}`);
+      return null
     }
   }
 }
