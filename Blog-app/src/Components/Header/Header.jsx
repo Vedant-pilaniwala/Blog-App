@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Container, Button, LogoutBtn } from "../index";
 import { useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import "./Header.css";
 
 function Header() {
-  const [isSticky, setIsSticky] = useState(false);
   const isAuthenticated = useSelector((state) => state.auth.authStatus);
 
   // For shortening of coder building an array which can be mapped and used while rendering component
@@ -37,22 +36,6 @@ function Header() {
     },
   ];
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 384) { 
-        setIsSticky(true);
-      } else {
-        setIsSticky(false);
-      }
-    };
-
-    window.addEventListener('scroll', handleScroll);
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
-  }, []);
-
   return (
     <Container className="h-auto">
       {/* background-image */}
@@ -69,7 +52,7 @@ function Header() {
 
       {/* navbar */}
       <Container
-        className={`h-28 shadow-2xl shadow-gray-400 bg-gradient-to-r from-gray-100 to-gray-300 ${isSticky ? 'fixed top-0 left-0 right-0 z-50' : ''} `}
+        className={`h-28 shadow-2xl shadow-gray-400 bg-gradient-to-r from-gray-100 to-gray-300 `}
       >
         <nav className="w-full h-full flex justify-end items-center">
           <ul className="w-full h-full flex justify-end items-center">
@@ -85,8 +68,8 @@ function Header() {
                     className={({ isActive }) =>
                       `hover:bg-gray-100/40 h-full flex justify-center itmes-center w-1/6 p-0 font-2
                     ${isActive
-                        ? "text-black font-semibold text-3xl bg-gray-100/60"
-                        : "text-gray-700 font-medium text-2xl bg-transparent"
+                        ? "text-black font-semibold text-2xl bg-gray-100/60"
+                        : "text-gray-700 font-medium text-xl bg-transparent"
                       }`
                     }
                     to={page.slug}

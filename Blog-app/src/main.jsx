@@ -9,13 +9,14 @@ import {
 import "./index.css";
 import { Provider } from "react-redux";
 import store from "./Redux/Store.js";
-import { Login, Signup } from './Components/index.js'
+import { Login, Signup, PostForm } from './Components/index.js'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
   <Route path="/" element={<App />}>
     <Route path="/login" element={<Login />} />
     <Route path="/signup" element={<Signup />} />
+    <Route path="/addposts" element={<PostForm />} />
   </Route>
 ));
 

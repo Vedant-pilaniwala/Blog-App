@@ -26,7 +26,7 @@ class postServices {
           status,
           userId,
         }
-      );
+      ); 
     } catch (error) {
       console.error(`Appwrite services ::  createPost :: ${error}`);
     }
@@ -119,3 +119,7 @@ class postServices {
     }
   }
 }
+
+const services = new postServices();
+
+export default services;

@@ -4,10 +4,13 @@ import Header from "./Header/Header";
 import Footer from "./Footer/Footer";
 import LogoutBtn from "./Header/LogoutBtn";
 import SVGSection from "./Footer/SVGSection";
-import Input from './Input'
-import Select  from './Select'
+import Input from './Input';
+import Select  from './Select';
 import Login from "./Login";
 import Signup from "./Signup";
+import PostForm from './PostForm/PostForm';
+import RTE from './RTE';
+import PostCard from './PostCard';
 
 export {
     Container,
@@ -19,5 +22,8 @@ export {
     Input,
     Select,
     Login,
-    Signup
+    Signup,
+    PostForm,
+    RTE,
+    PostCard
 };
