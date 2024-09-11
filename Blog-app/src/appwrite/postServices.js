@@ -76,6 +76,18 @@ class postServices {
     }
   }
 
+  async getEveryPost() {
+    try {
+      return await this.databases.listDocuments(
+        config.databaseId,
+        config.collectionId,
+      )
+    } catch (error) {
+      console.error(`Appwrite services :: getEveryPost :: ${error}`);
+      return false;
+    }
+  }
+
   async getAllPosts() {
     try {
       return await this.databases.listDocuments(
@@ -120,6 +132,6 @@ class postServices {
   }
 }
 
-const services = new postServices();
+const dbServices = new postServices();
 
-export default services;
+export default dbServices;

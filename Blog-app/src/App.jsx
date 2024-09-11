@@ -4,14 +4,17 @@ import { Outlet } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import services from "./appwrite/authServices";
 import { login, logout } from "./Redux/Slice/authSlice";
+import { setPosts } from './Redux/Slice/postSlice'
+import dbServices from './appwrite/postServices'
 
 export default function App() {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const dispatch = useDispatch();
 
   //Loading and authentication checking
   useEffect(() => {
-    services.getCurrentUser()
+    services
+      .getCurrentUser()
       .then((userData) => {
         if (userData && userData.$id) {
           dispatch(login({ userData }));
@@ -20,20 +23,36 @@ export default function App() {
         }
       })
       .catch((error) => {
-        console.error('Error checking current user:', error);
+        console.error("Error checking current user:", error);
         dispatch(logout()); // Ensure to handle logout on error
       })
       .finally(() => setIsLoading(false));
   }, [dispatch]);
 
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const response = await dbServices.getEveryPost([]);
+        if (response && response.documents) {
+          dispatch(setPosts(response.documents));
+        }
+      } catch (err) {
+        console.log(err)
+      }
+    };
+
+    fetchPosts();
+  }, [dispatch]);
+
+
   //  Building logic for loading
   if (isLoading) {
-    return(
+    return (
       // Loading... will be displayed if isLoading
       <div className="w-full h-full text-7xl mt-14 font-bold text-center p-5">
         Loading...
       </div>
-    )
+    );
   } else {
     return (
       // Home page will be displayed if the page is loaded

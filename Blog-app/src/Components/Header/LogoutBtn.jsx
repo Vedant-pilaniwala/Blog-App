@@ -2,7 +2,7 @@ import React from "react";
 import { Button } from "../index";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { logout as authLogout } from "../../Redux/Slice/authSlice";
+import { logout } from "../../Redux/Slice/authSlice";
 import services from "../../appwrite/authServices";
 
 function LogoutBtn() {
@@ -13,7 +13,7 @@ function LogoutBtn() {
     services
       .logout()
       .then(() => {
-        dispatch(authLogout());
+        dispatch(logout());
       })
       .finally(() => {
         navigate("/");

@@ -71,11 +71,11 @@ function PostForm({ post }) {
         data.featuredImg = fileId;
         const createdPost = await services.createPost({
           ...data,
-          userId: userData.$id
+          userId: userData.userData.$id
         });
 
         if (createdPost) {
-          dispatch(createPost({ createdPost }));
+          dispatch(createPost( createdPost ));
           navigate(`/posts/${createdPost.$id}`);
         }
       }
