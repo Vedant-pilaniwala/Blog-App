@@ -26,7 +26,7 @@ class postServices {
           status,
           userId,
         }
-      ); 
+      );
     } catch (error) {
       console.error(`Appwrite services ::  createPost :: ${error}`);
     }
@@ -80,8 +80,8 @@ class postServices {
     try {
       return await this.databases.listDocuments(
         config.databaseId,
-        config.collectionId,
-      )
+        config.collectionId
+      );
     } catch (error) {
       console.error(`Appwrite services :: getEveryPost :: ${error}`);
       return false;
@@ -119,16 +119,8 @@ class postServices {
     }
   }
 
-  async getFilePreview(fileID) {
-    try {
-      return this.bucket.getFilePreview(
-        config.bucketId,
-        fileID
-      )
-    } catch (error) {
-      console.error(`Appwrite services :: deleteFile :: ${error}`);
-      return false;
-    }
+  getFilePreview(fileID) {
+    return this.bucket.getFilePreview(config.bucketId, fileID);
   }
 }
 

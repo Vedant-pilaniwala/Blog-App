@@ -7,15 +7,16 @@ import {
   createRoutesFromElements,
 } from "react-router-dom";
 import "./index.css";
-import { Provider } from "react-redux";
+import { Provider } from "react-redux"
+import { Login, PostForm } from './Components/index.js'
 import store from "./Redux/Store.js";
-import { Login, Signup, PostForm } from './Components/index.js'
+import Home from "./Pages/Home.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
   <Route path="/" element={<App />}>
+    <Route path="/" element={<Home />} />
     <Route path="/login" element={<Login />} />
-    <Route path="/signup" element={<Signup />} />
     <Route path="/addposts" element={<PostForm />} />
   </Route>
 ));
