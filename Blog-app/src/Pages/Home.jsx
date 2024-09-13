@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Container, PostCard } from "../Components/";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 function Home() {
   const [posts, setPosts] = useState([]);
@@ -9,7 +10,7 @@ function Home() {
 
   useEffect(() => {
     setPosts(postsArr)
-  }, [postsArr]);
+  }, []);
 
 
   if (authStatus === false) {
