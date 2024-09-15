@@ -21,11 +21,11 @@ function AllPosts() {
       } else if (posts.length !== 0) {
         return (
             <Container className="flex p-8 items-center">
-                <ul className="flex p-5 gap-7">
+                <ul className="grid grid-cols-5 p-5 gap-7">
                     {posts.map((post) => {
                       if(post.status === 'active') {
                         return (
-                          <li key={post.$id} className="p-3 w-60 h-72">
+                          <li key={post.$id} className="h-72">
                               <PostCard {...post} />
                           </li>
                         )

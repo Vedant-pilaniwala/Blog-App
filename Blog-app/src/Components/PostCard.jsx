@@ -2,9 +2,9 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import dbServices from '../appwrite/postServices'
 
-function PostCard({ userId, featuredImg, title }) {
+function PostCard({ $id, featuredImg, title }) {
   return (
-    <Link to={`/posts/${userId}`}>
+    <Link to={`/posts/${$id}`}>
         <div className='w-full h-full bg-gray-200 rounded-xl p-4'>
             <div className='w-full justify-center mb-4'>
                 <img src={dbServices.getFilePreview(featuredImg)} alt={title}
