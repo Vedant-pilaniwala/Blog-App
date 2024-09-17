@@ -53,13 +53,15 @@ class postServices {
 
   async deletePost(postID) {
     try {
-      return await this.databases.deleteDocument(
+      await this.databases.deleteDocument(
         config.databaseId,
         config.collectionId,
         postID
       );
+      return true
     } catch (error) {
       console.error(`Appwrite services :: deletePost :: ${error}`);
+      return false
     }
   }
 

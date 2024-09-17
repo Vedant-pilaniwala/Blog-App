@@ -7,6 +7,7 @@ import services from "../../appwrite/postServices";
 import { updatePost, createPost } from "../../Redux/Slice/postSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import dbServices from "../../appwrite/postServices";
 
 function PostForm({ post }) {
   const [image, setImage] = useState(null);
@@ -71,7 +72,7 @@ function PostForm({ post }) {
         data.featuredImg = fileId;
         const createdPost = await services.createPost({
           ...data,
-          userId: userData.userData.$id
+          userId: userData && userData.userData.$id
         });
 
         if (createdPost) {
@@ -142,7 +143,7 @@ function PostForm({ post }) {
           ) : post ? (
             <div className="imageContainer containerFit">
               <img
-                src={services.getFilePreview(post.featuredImg)}
+                src={dbServices.getFilePreview(post.featuredImg)}
                 className="rounded-xl"
               />
             </div>

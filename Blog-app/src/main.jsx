@@ -15,6 +15,7 @@ import store from "./Redux/Store.js";
 import Home from "./Pages/Home.jsx";
 import AllPosts from "./Pages/AllPosts.jsx";
 import Post from "./Pages/Post.jsx";
+import EditPost from "./Pages/EditPost.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -25,6 +26,7 @@ const router = createBrowserRouter(
     <Route path="/addposts" element={<AddPost />} />
     <Route path="/allposts" element={<AllPosts />} />
     <Route path="/posts/:slug" element={<Post />} />
+    <Route path="/edit-post/:slug" element={<EditPost />} />
   </Route>
 ));
 
