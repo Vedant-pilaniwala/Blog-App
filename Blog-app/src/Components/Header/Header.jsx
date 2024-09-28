@@ -75,7 +75,7 @@ function Header() {
                     to={page.slug}
                   >
                     <li className="bg-transparent flex items-center">
-                      <Button styles="p-5">{page.name}</Button>
+                      <Button styles="p-5 outline-none">{page.name}</Button>
                     </li>
                   </NavLink>
                 );

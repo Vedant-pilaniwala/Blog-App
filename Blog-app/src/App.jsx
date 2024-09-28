@@ -17,7 +17,7 @@ export default function App() {
       .getCurrentUser()
       .then((userData) => {
         if (userData && userData.$id) {
-          dispatch(login({ userData }));
+          dispatch(login(userData));
         } else {
           dispatch(logout());
         }

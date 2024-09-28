@@ -38,7 +38,7 @@ function PostForm({ post }) {
   useEffect(() => {
     const subscription = watch((value, { name }) => {
       if (name === "title") {
-        setValue("slug", slugTransform(value.title), { shouldValidate: true });
+        setValue("slug", slugTransform(value?.title), { shouldValidate: true });
       }
     });
 
@@ -65,18 +65,18 @@ function PostForm({ post }) {
         navigate(`/posts/${dbPost.$id}`);
       }
     } else {
-      const file = await services.uploadFile(data.image[0])
+      const file = await services.uploadFile(data.image[0]);
 
       if (file) {
         const fileId = file.$id;
         data.featuredImg = fileId;
         const createdPost = await services.createPost({
           ...data,
-          userId: userData && userData.userData.$id
+          userId: userData && userData.$id,
         });
 
         if (createdPost) {
-          dispatch(createPost( createdPost ));
+          dispatch(createPost(createdPost));
           navigate(`/posts/${createdPost.$id}`);
         }
       }
@@ -116,7 +116,7 @@ function PostForm({ post }) {
             label="Content: "
             name="content"
             control={control}
-            defaultValue={getValues("content")}
+            defaultValue={post ? post.content : getValues("content")}
           />
         </div>
         <div className="w-1/3 pt-7">

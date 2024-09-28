@@ -21,7 +21,7 @@ function LogoutBtn() {
   };
 
   return (
-    <Button onClick={handleOnClick} styles="p-5">
+    <Button onClick={handleOnClick} styles="p-5 outline-none">
       Logout
     </Button>
   );
